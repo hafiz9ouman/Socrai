@@ -1,0 +1,41 @@
+/*
+
+-- /var/www/dev.socrai.com/public_html/resources/views/auth  two files 
+chown dev_socrai_com:apache /var/www/dev.socrai.com/public_html/resources/views/auth/2fa_settings.blade.php
+chown dev_socrai_com:apache /var/www/dev.socrai.com/public_html/resources/views/auth/2fa_verify.blade.php
+
+-- routes above added 
+-- app\Http\Controllers\LoginSecurityController.php    added
+-- app\Http\Middleware\LoginSecurityMiddleware.php  done
+chown dev_socrai_com:apache /var/www/dev.socrai.com/public_html/app/Http/Controllers/LoginSecurityController.php   done
+chown dev_socrai_com:apache /var/www/dev.socrai.com/public_html/app/Http/Middleware/LoginSecurityMiddleware.php   done
+-- kernal.php app\Http\Kernel.php   done
+-- add app/support folder   done
+chown dev_socrai_com:apache /var/www/dev.socrai.com/public_html/app/Support
+chown dev_socrai_com:apache /var/www/dev.socrai.com/public_html/app/Support/Google2FAAuthenticator.php
+-- add model LoginSecurity
+chown dev_socrai_com:apache /var/www/dev.socrai.com/public_html/app/LoginSecurity.php
+
+-- update user model and add a method at the end 
+
+-- composer.phar require pragmarx/google2fa-laravel
+	COMPOSER_MEMORY_LIMIT=-1 composer.phar require pragmarx/google2fa-laravel
+
+
+-- COMPOSER_MEMORY_LIMIT=-1 composer.phar require bacon/bacon-qr-code:~1.0.3
+
+--  installed folder/files 
+sudo chown -R dev_socrai_com:apache /var/www/dev.socrai.com/public_html/vendor
+
+
+
+-- run command and update view path 
+php artisan vendor:publish --provider="PragmaRX\Google2FALaravel\ServiceProvider"
+
+
+https://www.mynotepaper.com/laravel-two-factor-authentication-with-google-authenticator
+
+chown dev_socrai_com:apache /var/www/dev.socrai.com/public_html/config/google2fa.php
+
+
+*/

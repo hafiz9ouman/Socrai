@@ -1,0 +1,48 @@
+@font-face {
+    font-family: wpbp;
+    src: url("./wpbp.eot");
+    src: url("./wpbp.eot?#iefix") format("embedded-opentype"), url("./wpbp.woff2") format("woff2"), url("./wpbp.woff") format("woff"), url("./wpbp.ttf") format("truetype"), url("./wpbp.svg#wpbp") format("svg");
+    font-style: normal;
+    font-weight: 400;
+}
+
+.wpbp {
+    display: inline-block;
+    transform: translate(0, 0);
+    text-rendering: auto;
+    font: normal normal 400 14px/1 wpbp;
+    font-size: inherit;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+}
+
+.wpbp-lg {
+    vertical-align: -15%;
+    line-height: 0.75em;
+    font-size: 1.33333333em;
+}
+
+.wpbp-2x {
+    font-size: 2em;
+}
+
+.wpbp-3x {
+    font-size: 3em;
+}
+
+.wpbp-4x {
+    font-size: 4em;
+}
+
+.wpbp-5x {
+    font-size: 5em;
+}
+
+.wpbp-fw {
+    width: 1.28571429em;
+    text-align: center;
+}
+
+.wpbp-wp::before {
+    content: "\ea01";
+}

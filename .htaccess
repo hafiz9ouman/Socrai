@@ -1,0 +1,45 @@
+<IfModule mod_rewrite.c>
+    <IfModule mod_negotiation.c>
+        Options -MultiViews
+    </IfModule>
+
+    <Files .htaccess>
+        Order Allow,Deny
+        Deny from all
+    </Files>
+
+    <Files .env>
+        Order Allow,Deny
+        Deny from all
+    </Files>
+
+    <Files php.ini>
+        Order Allow,Deny
+        Deny from all
+    </Files>
+
+    <Files composer.json>
+        Order Allow,Deny
+        Deny from all
+    </Files>
+
+    <Files composer.lock>
+        Order Allow,Deny
+        Deny from all
+    </Files>
+
+    RewriteEngine On
+    RewriteBase /
+    DirectoryIndex index.html index.htm default.htm index.php index.php3 index.phtml index.php5 index.shtml mwindex.phtml
+
+    # Disable ServerSignature
+    ServerSignature Off
+
+    # Handle Front Controller...
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{DOCUMENT_ROOT}$1 -d
+    RewriteRule ^ index.php [L]
+   
+
+</IfModule>

@@ -1,0 +1,96 @@
+@extends( 'admin.layouts.app' )
+
+@section( 'content' )
+    <div class="app-title">
+
+        <ul class="app-breadcrumb breadcrumb">
+            <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i>
+            </li>
+            <li class="breadcrumb-item"><a href="{{url('/admin')}}">Dashboard</a>
+            </li>
+            <li class="breadcrumb-item"><a href="{{url('/users')}}">All Agents</a>
+            </li>
+            <li class="breadcrumb-item">Add Agents</li>
+        </ul>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+
+            <div class="tile">
+                @if (session('success'))
+                    <div class="alert  alert-info" style="width: 100%">
+                        {{ session('success') }}
+                    </div>
+                @endif
+                @if (session('Failed'))
+                    <div class="alert alert-danger" style="width: 100%">
+                        {{ session('Failed') }}
+                    </div>
+                @endif
+                <h3 class="tile-title">Add Questions & Answer</h3>
+                <form class="form-horizontal" method="POST" action="{{ route('store.question') }}" enctype="multipart/form-data">
+                    {{ csrf_field() }}
+                    <div class="row">
+
+
+
+                        <div class="col-sm-6 col-md-4">
+                            <div class="form-group">
+                                <label class="form-control-label">Question</label>
+                                <input id="question" type="text" class="form-control " name="question" required >
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-md-4">
+                            <div class="form-group">
+                                <label class="form-control-label">Answer</label>
+                                <input id="answer"  type="text" class="form-control " name="answer"  required >
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-md-4">
+                            <div class="form-group">
+                                <label class="form-control-label">Clue</label>
+                                <input id="clue"  type="text" class="form-control " name="clue"  required >
+                            </div>
+                        </div>
+
+
+                        <div class="col-sm-6 col-md-4 ">
+                            <label for="comp">Topic</label>
+                            <select name="topic_id" id="topic_id" class="form-control "  required >
+                                <option value="">--- Select Topic  ---</option>
+                                @foreach ($topics as $data)
+                                    <option value="{{ $data->id }}">{{ $data->title }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+
+                        <div class="col-sm-6 col-md-4 ">
+                            <label for="comp">Level</label>
+                            <select name="level" id="topic_id" class="form-control "  required >
+                                <option value="">--- Select Level  ---</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                            </select>
+                        </div>
+
+
+                    </div>
+                    @if(Auth::check())
+                        <div class="tile-footer text-right " >
+                            <a href="{{route('questions_answers')}}" class="btn btn-default">@lang('general.cancel')</a>
+                            <button type="submit" class="btn btn-primary">@lang('general.save')</button>
+                        </div>
+                    @endif
+                </form>
+
+            </div>
+
+        </div>
+    </div>
+
+
+@endsection
+
+
