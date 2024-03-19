@@ -74,7 +74,7 @@
                                         </td>
 
                                                 <td>{{$data->name}}</td>
-                                                <td>{{$data->email}}</td>
+                                                <td style="text-transform: none !important;">{{$data->email}}</td>
                                                  <td>
                                                     <div class="form-check ">
                                                         <input type="checkbox"  value="{{$data->id}}"     name="user_id[]" class="form-check-input roomselect" id="{{$data->id}}">
