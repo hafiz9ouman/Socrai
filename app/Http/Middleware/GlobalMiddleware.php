@@ -17,11 +17,10 @@ class GlobalMiddleware
     public function handle(Request $request, Closure $next)
     {
         $response = $next($request);
-        // dd("ok");
 
-        $response->header('Cache-Control', 'no-cache, no-store, must-revalidate');
-        $response->header('Pragma', 'no-cache');
-        $response->header('Expires', '0');
+        $response->headers->set('Cache-Control', 'no-cache, no-store, must-revalidate');
+        $response->headers->set('Pragma', 'no-cache');
+        $response->headers->set('Expires', '0');
 
         return $response;
     }
