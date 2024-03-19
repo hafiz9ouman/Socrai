@@ -2484,9 +2484,16 @@ class ChatBotController extends Controller
                 $description = $old->description;
             }
 
+            if ($request->tribe_id) {
+                $tribe_id = $request->tribe_id;
+            } else {
+                $tribe_id = $old->tribe_id;
+            }
+
             $up =  DB::table('articles')->where('id', $input['article_id'])->update([
                 'article_title' => $title,
                 'description' => $description,
+                'tribe_id' => $tribe_id,
                 'image' => $name,
                 'updated_at' => \carbon\carbon::now(),
             ]);
