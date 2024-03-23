@@ -1630,9 +1630,9 @@ class ChatBotController extends Controller
 
             $user = auth('api')->user();
             // if($user->role != 1){
-                if($tribe->leader != $user->id){
-                    return response()->json(['error' => 'Unauthorized'], 403);
-                }
+                // if($tribe->leader != $user->id){
+                //     return response()->json(['error' => 'Unauthorized'], 403);
+                // }
             // }
             
 
