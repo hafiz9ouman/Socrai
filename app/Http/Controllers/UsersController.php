@@ -754,6 +754,7 @@ return redirect()->back();
             $image->move(public_path("/assets/img"), $fileName);
             $image->image = $fileName;
         }*/
+        $imgname = $user->image;
 
 if ($request->hasfile('image')) {
   $file = $request->file('image');
@@ -791,7 +792,7 @@ if ($request->hasfile('image')) {
         'email'=>$request->email
 
         ]);
-          return back();
+          return redirect("site_admin");
     }
 
 
