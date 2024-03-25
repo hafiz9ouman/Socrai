@@ -96,12 +96,12 @@
                 <div class="table-responsive">
                     <i class="fas fa-sync fa-spin"></i>
 
-                    <table id="rt" class="table">
-                        <div class="col-md-3">
+                    <table id="example" class="table">
+                        <!-- <div class="col-md-3">
                             <div class="form-group">
-                                <input type="text" name="serach" id="search" value="" class="form-control" />
+                                <input type="text" name="serach" id="search" placeholder="Search" value="" class="form-control" />
                             </div>
-                        </div>
+                        </div> -->
                         <thead class="back_blue">
                             <tr>
                                 <th style="display: none;">#Sr</th>
@@ -280,14 +280,13 @@
                                     </td>
                                 </tr>
                             @endforeach
-                            {{-- {{ $questions->links() }} --}}
                         </tbody>
                     </table>
                     <input type="hidden" name="hidden_page" id="hidden_page" value="1" />
                     <input type="hidden" name="hidden_column_name" id="hidden_column_name" value="id" />
                     <input type="hidden" name="hidden_sort_type" id="hidden_sort_type" value="asc" />
 
-                    <div id="paginat">{{ $questions->links() }}</div>
+                    <!-- <div id="paginat">{{ $questions->links() }}</div> -->
                 </div>
             </div>
         </div>

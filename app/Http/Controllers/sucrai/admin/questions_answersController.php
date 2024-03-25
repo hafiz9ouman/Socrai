@@ -48,7 +48,8 @@ class questions_answersController extends Controller
     {
 
         // dd(pathinfo('https://file-examples-com.github.io/uploads/2017/11/file_example_MP3_700KB.mp3', PATHINFO_EXTENSION));
-        $questions = DB::table('question_answers')->orderBy('question_answers.type')->join('topics', 'question_answers.topic_id', '=', 'topics.id')->select('question_answers.*', 'topics.title')->paginate(5);
+        $questions = DB::table('question_answers')->orderBy('question_answers.type')->join('topics', 'question_answers.topic_id', '=', 'topics.id')->select('question_answers.*', 'topics.title')->paginate(500);
+        // dd($questions);
         $data = json_encode($questions);
         $data = json_decode($data);
         foreach ($questions as $tc) {
@@ -981,47 +982,11 @@ class questions_answersController extends Controller
         ]);
         $path = request()->file('file')->getRealPath();
         $path1 = request()->file('file')->store('temp');
-        $path = storage_path('app') . '/' . $path1;
+        $path = storage_path('app').'/'.$path1;
         // dd($path);
         // $csvArrr = $this->csvToArray($path);
-        $csvArrr = array( );
-        $loadfunc = Excel::load($path, function ($reader) use($csvArrr) {
-            $excel = $reader->getExcel();
-            $sheet = $excel->getAllSheets()[0];
-            $firstrow = array();
-            foreach ($sheet->getRowIterator() as $index => $row) {
-                $tmprow = [];
-                if($index == 1){
-                    foreach ($row->getCellIterator() as $index1 => $cell) {
-                        $firstrow[$index1] = $cell->getValue();
-                    }
-                }
-                if ($index != 1) {
-                    foreach ($row->getCellIterator() as $index1 => $cell) {
-                        $value = $cell->getValue();
-                        // $styles = $this->getCellStyles($cell);
-                        $tmprow[$firstrow[$index1]] = $cell->getValue();
-                        if($firstrow[$index1] == 'question' || $firstrow[$index1] == 'answer'){
-                            $tmprow[$firstrow[$index1].'_style'] = $this->getCellStyles($cell);
-                        }
-                        // dd([$value => $styles]);
-                    }
-                    // dd($tmprow);
-                    $flg = 0;
-                    foreach($tmprow as $tmpval) {
-                        if($tmpval == null) {
-                            $flg ++;
-                        }
-                    }
-                    if($flg != 9)
-                        array_push($csvArrr, $tmprow);
-                    
-                }
-            }
-            $this->importArray = $csvArrr;
-            // dd($csvArrr);
-        });
-        $csvArrr = $this->importArray;
+        $csvArrr =  Excel::toArray(new ProjectsImport, $path);
+        
         // $file=$request->file('file')->store('import');
         // $csvArrr =  Excel::toArray(new ProjectsImport, $path);
         // $excel = Excel::import(new ProjectsImport, $path);
@@ -1031,8 +996,8 @@ class questions_answersController extends Controller
 
         // $csvArrr =  Excel::import(\Maatwebsite\Excel\Concerns\ToModel,$path);
         // dd($csvArrr);
-        // $csvArrr = $csvArrr[0];
         // dd($csvArrr);
+        $csvArrr = $csvArrr[0]; 
         $ses_err_message = "";
         $user_id = auth()->user()->id;
 
@@ -1044,7 +1009,7 @@ class questions_answersController extends Controller
 
 
         $indexes = array_keys($csvArrr[0]);
-
+        // dd($indexes);
 
         if (($indexes[0] != 'serial')) {
 
@@ -1058,43 +1023,43 @@ class questions_answersController extends Controller
             $missing_entry_check = 'false';
         }
 
-        if (($indexes[3] != 'answer')) {
+        if (($indexes[2] != 'answer')) {
 
             $sec_check = 'true';
             $missing_entry_check = 'false';
         }
 
-        if (($indexes[5] != 'clue')) {
+        if (($indexes[3] != 'clue')) {
 
             $sec_check = 'true';
             $missing_entry_check = 'false';
         }
 
-        if (($indexes[6] != 'level')) {
+        if (($indexes[4] != 'level')) {
 
             $sec_check = 'true';
             $missing_entry_check = 'false';
         }
 
-        if (($indexes[7] != 'type')) {
+        if (($indexes[5] != 'type')) {
 
             $sec_check = 'true';
             $missing_entry_check = 'false';
         }
 
-        if (($indexes[8] != 'media')) {
+        if (($indexes[6] != 'media')) {
 
             $sec_check = 'true';
             $missing_entry_check = 'false';
         }
 
-        if (($indexes[9] != 'media_type')) {
+        if (($indexes[7] != 'media_type')) {
 
             $sec_check = 'true';
             $missing_entry_check = 'false';
         }
 
-        if (($indexes[10] != 'linked')) {
+        if (($indexes[8] != 'linked')) {
 
             $sec_check = 'true';
             $missing_entry_check = 'false';
@@ -1292,12 +1257,12 @@ class questions_answersController extends Controller
 
             // $ses_err_message.=$datum['question'];
             
-            if($datum['question_style']["font"]["fontWeight"] == true){
-                $datum['question'] = '<strong>'.$datum['question'].'</strong>';
-            }
-            if($datum['answer_style']["font"]["fontWeight"] == true){
-                $datum['answer'] = '<strong>'.$datum['answer'].'</strong>';
-            }
+            // if($datum['question_style']["font"]["fontWeight"] == true){
+            //     $datum['question'] = '<strong>'.$datum['question'].'</strong>';
+            // }
+            // if($datum['answer_style']["font"]["fontWeight"] == true){
+            //     $datum['answer'] = '<strong>'.$datum['answer'].'</strong>';
+            // }
             $r = DB::table('question_answers')->insert([
                 "question" => str_replace('"', '\"', $datum['question']),
                 "answer" => str_replace('"', '\"', str_replace("\n", "<br>", $datum['answer'])),
