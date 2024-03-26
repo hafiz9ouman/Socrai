@@ -122,15 +122,15 @@
 
                         <div class="form-group" id="upload_media_image">
                             @if( $data->media_type != "external" && in_array($data->media_type, $image_type))
-                                <img src="{{ url('public/'.$data->media) }}" width="100" height="100">
+                                <img src="{{ url($data->media) }}" width="100" height="100">
                             @elseif( $data->media_type != "external" && in_array( $data->media_type, $video_type) )
                             <video controls poster="{{ url('public/play.png') }}" width="320" height="240">
-                                <source src="{{ url('public/'. $data->media) }}" type="video/mp4">
+                                <source src="{{ url($data->media) }}" type="video/mp4">
                                 Your browser does not support the video tag.
                             </video>
                             @elseif( $data->media_type != "external" && in_array( $data->media_type, $audio_type) )
                             <audio controls>
-                                <source src="{{ url('public/'.$data->media) }}" type="audio/mpeg">
+                                <source src="{{ url($data->media) }}" type="audio/mpeg">
                                 Your browser does not support the audio element.
                             </audio>
                             @elseif( $data->media_type == "external")

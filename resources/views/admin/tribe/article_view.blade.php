@@ -254,7 +254,7 @@
             <div class="header_comment">
                 <div class="row">
 
-                      <div class="art_image w-100 text-center"> <img src="{{ url('public/images/sucrai/'.$article_data->image) }}" class="img-fluid" style="width: 500px;"> </div>
+                      <div class="art_image w-100 text-center"> <img src="{{ url('images/sucrai/'.$article_data->image) }}" class="img-fluid" style="width: 500px;"> </div>
                     <div class="col-md-6 text-left">
 
                       <span class="count_comment">{{ DB::table('discussions')->where('discussions.article_id' , $article_data->id)->join('users' , 'users.id' , '=' , 'discussions.user_id')->count() }} Comments</span>
@@ -273,7 +273,7 @@
                         <li class="box_result row">
                             <div class="avatar_comment col-md-1">
                             	<?php $image='abc.png';  if($root->image){$image = $root->image;}  ?>
-                                <img src="{{ url('public/images/sucrai/'.$image) }}" alt="avatar"/>
+                                <img src="{{ url('images/sucrai/'.$image) }}" alt="avatar"/>
                             </div>
                             <div class="result_comment col-md-11">
                                 <h4>{{ $root->name }}</h4>
@@ -296,7 +296,7 @@
                                     <li class="box_reply row">
                                         <div class="avatar_comment col-md-1">
                                             <?php $image='abc.png';  if($child->image){$image = $child->image;}  ?>
-                                                       <img src="{{ url('public/images/sucrai/'.$image) }}" alt="avatar"/>
+                                                       <img src="{{ url('images/sucrai/'.$image) }}" alt="avatar"/>
                                         </div>
                                          <div class="result_comment col-md-11">
                                             <h4>{{ $child->name }}</h4>
