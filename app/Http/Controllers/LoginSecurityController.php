@@ -14,6 +14,8 @@ use Hash;
 
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\DB;
+
 
 
 class LoginSecurityController extends Controller
@@ -219,6 +221,24 @@ class LoginSecurityController extends Controller
         $user->loginSecurity->save();
 
         return redirect('/2fa')->with('success', '2FA is now disabled.');
+
+    }
+
+    public function mfa_logic(Request $request){
+
+        // dd($request->all());
+        $email = $request->email;
+        $code = $request->code;
+
+        $check = DB::table('users')->where('email', $email)->first();
+        
+        if($check->two_factor_code == $code){
+            return redirect('admin');
+        }
+        else{
+            $err = "Invalid Code";
+            return view('2fa.2fa_code', compact("email", "err"));
+        }
 
     }
 

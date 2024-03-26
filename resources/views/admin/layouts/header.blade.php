@@ -14,11 +14,16 @@
           <ul class="dropdown-menu settings-menu dropdown-menu-right">
     			{{-- <li><a class="dropdown-item" href="{{url('/profile-view')}}"><i class="fa fa-sign-out fa-lg"></i> Profile </a></li> --}}
           {{-- check if two factor is enabled --}}
-          @if( $check_2fa == null || $check_2fa == 0  )
+          <!-- @if( $check_2fa == null || $check_2fa == 0  )
     			 <li><a class="dropdown-item" href="{{url('/2fa')}}"><i class="fa fa-sign-out fa-lg"></i>Enable 2fa</a></li>
           @endif
           @if($check_2fa == 1)
            <li><a class="dropdown-item" href="{{url('/2fa/disable')}}"><i class="fa fa-sign-out fa-lg"></i>Disable 2fa</a></li>
+           @endif -->
+           @if(Auth::user()->tfa == 1)
+              <li><a class="dropdown-item" href="{{url('/2mfa/disable')}}"><i class="fa fa-sign-out fa-lg"></i>Disable 2fa</a></li>
+           @else
+              <li><a class="dropdown-item" href="{{url('/2mfa')}}"><i class="fa fa-sign-out fa-lg"></i>Enable 2fa</a></li>
            @endif
           
             <li><a class="dropdown-item" href="{{url('/update-password/'.auth()->user()->id)}}"><i class="fa fa-sign-out fa-lg"></i>Change Password</a></li>

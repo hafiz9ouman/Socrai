@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\DB;
 
 Route::get('/logout', function(){
 	 // session()->put('key', 'value');
@@ -42,6 +43,24 @@ Route::get('/tests', 'ResourceController@tests');
 Route::get('/tests2', 'HomeController@tests2');
 
 Route::get('/email_test', 'ResourceController@email_test');
+
+////Mail 2FA
+Route::get('/2mfa', function () {
+    DB::table('users')->where('id', Auth::user()->id)->update([ 'tfa' => 1 ]);
+    return redirect('home');
+})->middleware('auth');
+
+Route::get('/2mfa/disable', function () {
+    DB::table('users')->where('id', Auth::user()->id)->update([ 'tfa' => 0 ]);
+    return redirect('home');
+})->middleware('auth');
+
+Route::post('/2mfa/validate', function () {
+    return "code logic";
+})->middleware('auth');
+
+Route::post('/2mfa/validate', 'LoginSecurityController@mfa_logic')->middleware('auth');
+/////////////
 
 
 Route::group(['prefix'=>'2fa'], function(){
