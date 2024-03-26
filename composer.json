@@ -6,6 +6,7 @@
     "type": "project",
     "require": {
         "php": "^8.0.25",
+        "bacon/bacon-qr-code": "^2.0",
         "fruitcake/laravel-cors": "^2.0.3",
         "guzzlehttp/guzzle": "^7.0.1",
         "laravel/framework": "^9.0",
