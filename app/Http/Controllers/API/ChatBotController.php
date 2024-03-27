@@ -80,7 +80,7 @@ class ChatBotController extends Controller
     }
     public function getTribeMedia(Request $request)
     {
-        $tribe_id = $request->tribe_id;
+        $tribe_id = $request->tribeId;
         $user_id = auth('api')->user()->id;
         $checkValidTribe = DB::table('tribes')->where('id', $tribe_id)->first();
         if ($checkValidTribe == null) {

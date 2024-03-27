@@ -401,7 +401,7 @@ class questions_answersController extends Controller
                         'media_type' => $media_type,
                     ]);
                     Session::flash('success', 'Successfully Added Question');
-                    return redirect("questions_answers/add");
+                    return redirect("questions_answers");
                 } else {
                     Session::flash('Failed', 'You can only add 18 questions of this level ');
                     return redirect("questions_answers/add");
@@ -419,7 +419,7 @@ class questions_answersController extends Controller
                         'media_type' => $media_type,
                     ]);
                     Session::flash('success', 'Successfully Added Question ');
-                    return redirect("questions_answers/add");
+                    return redirect("questions_answers");
                 } else {
                     Session::flash('Failed', 'You can only add 54 questions of this level ');
                     return redirect("questions_answers/add");
@@ -437,7 +437,7 @@ class questions_answersController extends Controller
                         'media_type' => $media_type,
                     ]);
                     Session::flash('success', 'Successfully Added Question ');
-                    return redirect("questions_answers/add");
+                    return redirect("questions_answers");
                 } else {
                     Session::flash('Failed', 'You can only add 164 questions of this level ');
                     return redirect("questions_answers/add");
@@ -460,7 +460,7 @@ class questions_answersController extends Controller
                         'media_type' => $media_type,
                     ]);
                     Session::flash('success', 'Successfully Added Exercise');
-                    return redirect("questions_answers/add");
+                    return redirect("questions_answers");
                 } else {
                     Session::flash('Failed', 'You can only add 18 exercises of this level ');
                     return redirect("questions_answers/add");
@@ -478,7 +478,7 @@ class questions_answersController extends Controller
                         'media_type' => $media_type,
                     ]);
                     Session::flash('success', 'Successfully Added Exercise ');
-                    return redirect("questions_answers/add");
+                    return redirect("questions_answers");
                 } else {
                     Session::flash('Failed', 'You can only add 54 exercises of this level ');
                     return redirect("questions_answers/add");
@@ -496,7 +496,7 @@ class questions_answersController extends Controller
                         'media_type' => $media_type,
                     ]);
                     Session::flash('success', 'Successfully Added Exercise ');
-                    return redirect("questions_answers/add");
+                    return redirect("questions_answers");
                 } else {
                     Session::flash('Failed', 'You can only add 164 exercises of this level ');
                     return redirect("questions_answers/add");
@@ -734,6 +734,10 @@ class questions_answersController extends Controller
     public function storeExerciseQuestion(Request $request)
     {
         // dd($request->all());
+        if ($request->exercise_id == null) {
+            Session::flash('Failed', 'Select Excersize Question');
+            return redirect()->route('questions_answers');
+        }
         $result = DB::table('question_exercise')->where('question_answer_id', $request->question_id)->first();
         // dd($result);
         if ($result != null) {
