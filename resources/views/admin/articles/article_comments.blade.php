@@ -50,7 +50,7 @@
                         @foreach($data as $row)
                         <?php
 
-                        //print_r($row);
+                       // print_r($row);
                         ?>
 
                            <tr >
@@ -70,7 +70,7 @@ $count = DB::table('comment_likes')->where('comment_likes.comment_id' , $row->id
                                 <td>
                              
 
-                                    <a href="javascript:;" data-id="{{$row->id}}" class="btn btn-sm btn-danger delete" style="float: left;"><i class="fa fa-trash"></i><small> Delete</small></a>
+<a href="javascript:;" data-id="{{$row->id}}" class="btn btn-sm btn-danger delete" style="float: left;"><i class="fa fa-trash"></i><small> Delete</small></a>
 
 &nbsp;
 <a class="btn btn-sm btn-warning" data-toggle="modal" data-target="{{'#myModal'. $row->id}}"><i class="fa fa-edit"></i>Edit</a>

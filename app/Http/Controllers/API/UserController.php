@@ -108,6 +108,7 @@ class UserController extends Controller
             if($user->is_email_varified==0){
                 $name = $user->name;
                 $email = $user->email;
+                // $new_pas = $user->varif_code;
                 $new_pas = rand(1000,9999);
                 DB::table('users')->where('email', $email)->update([
                     "varif_code" =>$new_pas,

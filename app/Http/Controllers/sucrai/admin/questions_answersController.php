@@ -329,7 +329,7 @@ class questions_answersController extends Controller
 
             if (!in_array($mmtype, $allowed_file_types)) {
                 Session::flash('Failed', 'File type not allowed.Allowed file types are jpeg,png,jpg,gif,mp4,mp3');
-                return redirect()->back();
+                return redirect("questions_answers/add");
             }
 
 
@@ -370,7 +370,7 @@ class questions_answersController extends Controller
                     $fileName = $url;
                 } else {
                     Session::flash('Failed', 'External media must be a valid youtube or mp3 link');
-                    return redirect()->back();
+                    return redirect("questions_answers/add");
                 }
             }
 
@@ -401,10 +401,10 @@ class questions_answersController extends Controller
                         'media_type' => $media_type,
                     ]);
                     Session::flash('success', 'Successfully Added Question');
-                    return redirect()->back();
+                    return redirect("questions_answers/add");
                 } else {
                     Session::flash('Failed', 'You can only add 18 questions of this level ');
-                    return redirect()->back();
+                    return redirect("questions_answers/add");
                 }
             } elseif ($request->level == 2) {
                 if ($questions_count <= 53) {
@@ -419,10 +419,10 @@ class questions_answersController extends Controller
                         'media_type' => $media_type,
                     ]);
                     Session::flash('success', 'Successfully Added Question ');
-                    return redirect()->back();
+                    return redirect("questions_answers/add");
                 } else {
                     Session::flash('Failed', 'You can only add 54 questions of this level ');
-                    return redirect()->back();
+                    return redirect("questions_answers/add");
                 }
             } elseif ($request->level == 3) {
                 if ($questions_count < 162) {
@@ -437,14 +437,14 @@ class questions_answersController extends Controller
                         'media_type' => $media_type,
                     ]);
                     Session::flash('success', 'Successfully Added Question ');
-                    return redirect()->back();
+                    return redirect("questions_answers/add");
                 } else {
                     Session::flash('Failed', 'You can only add 164 questions of this level ');
-                    return redirect()->back();
+                    return redirect("questions_answers/add");
                 }
             } else {
                 Session::flash('Failed', 'Invalid Input');
-                return redirect()->back();
+                return redirect("questions_answers/add");
             }
         } else {
             if ($request->level == 1) {
@@ -460,10 +460,10 @@ class questions_answersController extends Controller
                         'media_type' => $media_type,
                     ]);
                     Session::flash('success', 'Successfully Added Exercise');
-                    return redirect()->back();
+                    return redirect("questions_answers/add");
                 } else {
                     Session::flash('Failed', 'You can only add 18 exercises of this level ');
-                    return redirect()->back();
+                    return redirect("questions_answers/add");
                 }
             } elseif ($request->level == 2) {
                 if ($questions_count_E <= 53) {
@@ -478,10 +478,10 @@ class questions_answersController extends Controller
                         'media_type' => $media_type,
                     ]);
                     Session::flash('success', 'Successfully Added Exercise ');
-                    return redirect()->back();
+                    return redirect("questions_answers/add");
                 } else {
                     Session::flash('Failed', 'You can only add 54 exercises of this level ');
-                    return redirect()->back();
+                    return redirect("questions_answers/add");
                 }
             } elseif ($request->level == 3) {
                 if ($questions_count_E < 162) {
@@ -496,14 +496,14 @@ class questions_answersController extends Controller
                         'media_type' => $media_type,
                     ]);
                     Session::flash('success', 'Successfully Added Exercise ');
-                    return redirect()->back();
+                    return redirect("questions_answers/add");
                 } else {
                     Session::flash('Failed', 'You can only add 164 exercises of this level ');
-                    return redirect()->back();
+                    return redirect("questions_answers/add");
                 }
             } else {
                 Session::flash('Failed', 'Invalid Input');
-                return redirect()->back();
+                return redirect("questions_answers/add");
             }
         }
 
@@ -553,7 +553,9 @@ class questions_answersController extends Controller
             $mmtype = $uploadfile->getMimeType();
             if (!in_array($mmtype, $allowed_file_types)) {
                 Session::flash('Failed', 'File type not allowed.Allowed file types are jpeg,png,jpg,gif,mp4,mp3');
-                return redirect()->back();
+                //redirect("questions_answers/edit/"+$request->id);
+				return redirect("questions_answers/edit/".$request->id);
+				//return redirect()->back();
             }
 
 
@@ -760,7 +762,8 @@ class questions_answersController extends Controller
             "type" => 0,
         ]);
         DB::table('question_exercise')->where('exercise_question_id', $id)->delete();
-        return redirect()->back();
+        //return redirect()->back();
+		return redirect("questions_answers");
     }
     public function makeItExercise($id)
     {

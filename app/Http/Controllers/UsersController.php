@@ -30,7 +30,7 @@ class UsersController extends Controller
     public function site_admin_index(){
       // dd(auth()->user()->user_role);
       if(auth()->user()->user_role != '1'){
-        return redirect()->back();
+        return redirect("login");
       }
            $data = DB::table('users')->where('user_role',1)->where('id' , '!=' ,auth()->user()->id )->get();
            return view('admin.users.siteadmin_home', compact("data"));
@@ -46,7 +46,7 @@ class UsersController extends Controller
     public function site_admin_edit($id)
 	{
        if(auth()->user()->user_role != 1){
-        return redirect()->back();
+        return redirect("site_admin/edit/".$id);
       }
         $data=$this->user->editUser($id);
         $user = $data[0];
@@ -56,7 +56,7 @@ class UsersController extends Controller
     public function site_admin_create()
 	{
        if(auth()->user()->user_role != 1){
-        return redirect()->back();
+        return redirect("site_admin");
       }
       // dd('wallaakakak');
       $companies = '';
@@ -65,7 +65,7 @@ class UsersController extends Controller
     public function pages_create()
 	{
        if(auth()->user()->user_role != 1){
-        return redirect()->back();
+        return redirect("pages");
       }
       $data = DB::table('pages')->first();
       // dd($data);
@@ -108,8 +108,8 @@ class UsersController extends Controller
 
         $flag = DB::table('users')->where('email', $request->email)->first();
         if($flag){
-                Session::flash('Fail', 'Email already exists');
-                return redirect("site_admin");
+                Session::flash('Failed', 'Email already exists');
+                return redirect("site_admin/add");
         }
         // $data=$this->user->savedata($request);
         $data=$this->user->savedata_admin($request);
@@ -120,8 +120,8 @@ class UsersController extends Controller
                 return redirect("site_admin");
         }
         else{
-                Session::flash('Fail', 'Some Thing Went Wrong');
-                return redirect("site_admin");
+                Session::flash('Failed', 'Some Thing Went Wrong');
+                return redirect("site_admin/add");
 
         }
     }
@@ -146,7 +146,7 @@ class UsersController extends Controller
         }
         else{
             Session::flash('Fail', 'Some Thing Went Wrong');
-            return redirect("site_admin");
+            return redirect("site_admin/edit/".$request->id);
         }
     }
 
@@ -267,7 +267,8 @@ if($request->confirm_password!='' && $request->password!=''){
 
 if($request->password!=$request->confirm_password){
     Session::flash('Fail', 'Password and Confirm Password must be same.');
-            return redirect("users");
+            return redirect("users/".'edit/'.$request->id);
+			
 }
 if($request->password==$request->confirm_password && $request->password!=''){
 
@@ -340,6 +341,7 @@ if(sizeof($errors)==0){
         }
         else{
             //Session::flash('Fail', 'Some Thing Went Wrong');
+			Session::flash('errors', 'Some Thing Went Wrong');
             return redirect("users");
         }
     }
@@ -703,7 +705,7 @@ if(sizeof($errors)==0){
             Session::flash('errors', $errors);
         
 
-return redirect()->back();
+return redirect("update-password/".$request->id);
 }
         DB::table('users')->where('id',$request->id)->update([
 
@@ -723,10 +725,10 @@ return redirect()->back();
 
 
     
+		return redirect("update-password/".$request->id);
 
 
-
-        return back();
+        //return back();
     }
 
     public function update_profile($user_id){

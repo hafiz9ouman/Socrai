@@ -75,6 +75,20 @@
 								<input id="email"  type="email" class="form-control " name="email" value="{{ $user->email }}"  >
 							</div>
 						</div>
+						
+						<div class="col-sm-6 col-md-4">
+							<div class="form-group">
+								
+								
+								 <label for="comp">2FA</label>
+                                <select name="tfa" class="form-control "  required >
+                                    <option <?php if($user->tfa==1) { echo 'selectd'; } ?> value="1">Yes</option>
+									<option <?php if($user->tfa!=1) { echo 'selectd'; } ?> value="0">No</option>
+                                                                    </select>
+																	
+																	
+							</div>
+						</div>
 				
 
 
