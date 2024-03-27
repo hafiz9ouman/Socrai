@@ -190,11 +190,19 @@ return view('admin.articles.home' , compact('data'));
     }
     public function article_comment_delete(Request $request){
                 $comment_id = $request->id;
-             $comment_del = DB::table('discussions')->where('id' , $comment_id)->delete();
-             if($comment_del){
-                       DB::table('discussions')->where('parent_comment_id' , $comment_id)->delete();
-                       DB::table('comment_likes')->where('comment_id' , $comment_id)->delete();   
-                        }
+             $comment_del = DB::table('discussions')->where('id' , $comment_id)->first();
+
+             if($comment_del->parent_comment_id == 0){
+                DB::table('discussions')->where('id' , $comment_id)->delete();
+                if(DB::table('discussions')->where('parent_comment_id' , $comment_id)->count() > 0){
+                    DB::table('discussions')->where('parent_comment_id' , $comment_id)->delete();
+                }
+                DB::table('comment_likes')->where('comment_id' , $comment_id)->delete();   
+             }
+             else{
+                DB::table('discussions')->where('id' , $comment_id)->delete();
+                DB::table('comment_likes')->where('comment_id' , $comment_id)->delete();
+             }
     }
 
     public function tribe_article_details($article_id){
