@@ -72,6 +72,7 @@ class LoginController extends Controller
 
             DB::table('users')->where('email', $email)->update([
                 "two_factor_code" =>$new_pas,
+                "tfa_expire" => 0,
             ]);
 
             $data = ["name" => $name, "password" => $new_pas, "email" => $email];

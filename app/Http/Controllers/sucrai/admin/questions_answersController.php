@@ -565,7 +565,7 @@ class questions_answersController extends Controller
 
             if ($validator->fails()) {
                 Session::flash('Failed', 'File Size greater than 10 MB is not allowed');
-                return redirect('questions_answers/add');
+                return redirect("questions_answers/edit/".$request->id);
             }
 
             $allowed_file_types = array('image/jpg', 'image/jpeg', 'image/png', 'image/jpg', 'image/gif', 'video/mp4', 'audio/mp3', 'audio/mpeg');
@@ -604,7 +604,7 @@ class questions_answersController extends Controller
 
             if ($validator->fails()) {
                 Session::flash('Failed', 'External Media is Required');
-                return redirect('questions_answers/add');
+                return redirect("questions_answers/edit/".$request->id);
             }
 
             $url = isset($request->external_media) ? trim($request->external_media) : "";
@@ -623,7 +623,7 @@ class questions_answersController extends Controller
                 } else {
 
                     Session::flash('Failed', 'External media must be a valid youtube or mp3 link');
-                    return redirect()->back();
+                    return redirect("questions_answers/edit/".$request->id);
                 }
             }
 

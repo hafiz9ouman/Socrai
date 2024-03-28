@@ -14,11 +14,16 @@
           <ul class="dropdown-menu settings-menu dropdown-menu-right">
     			
           
-          <?php if( $check_2fa == null || $check_2fa == 0  ): ?>
+          <!-- <?php if( $check_2fa == null || $check_2fa == 0  ): ?>
     			 <li><a class="dropdown-item" href="<?php echo e(url('/2fa')); ?>"><i class="fa fa-sign-out fa-lg"></i>Enable 2fa</a></li>
           <?php endif; ?>
           <?php if($check_2fa == 1): ?>
            <li><a class="dropdown-item" href="<?php echo e(url('/2fa/disable')); ?>"><i class="fa fa-sign-out fa-lg"></i>Disable 2fa</a></li>
+           <?php endif; ?> -->
+           <?php if(Auth::user()->tfa == 1): ?>
+              <li><a class="dropdown-item" href="<?php echo e(url('/2mfa/disable')); ?>"><i class="fa fa-sign-out fa-lg"></i>Disable 2fa</a></li>
+           <?php else: ?>
+              <li><a class="dropdown-item" href="<?php echo e(url('/2mfa')); ?>"><i class="fa fa-sign-out fa-lg"></i>Enable 2fa</a></li>
            <?php endif; ?>
           
             <li><a class="dropdown-item" href="<?php echo e(url('/update-password/'.auth()->user()->id)); ?>"><i class="fa fa-sign-out fa-lg"></i>Change Password</a></li>

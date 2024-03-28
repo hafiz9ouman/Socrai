@@ -233,6 +233,9 @@ class LoginSecurityController extends Controller
         $check = DB::table('users')->where('email', $email)->first();
         
         if($check->two_factor_code == $code){
+            DB::table('users')->where('email', $email)->update([
+                "tfa_expire" => 1,
+            ]);
             return redirect('admin');
         }
         else{

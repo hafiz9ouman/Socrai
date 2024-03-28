@@ -5,6 +5,8 @@ namespace App\Http\Middleware;
 use App\Support\Google2FAAuthenticator;
 use Closure;
 use Session;
+use Auth;
+use DB;
 
 class LoginSecurityMiddleware
 {
@@ -17,19 +19,16 @@ class LoginSecurityMiddleware
      */
     public function handle($request, Closure $next)
     {
-        $ff = Session::get('google2fa');
         
-        // dd($request);
-        $authenticator = app(Google2FAAuthenticator::class)->boot($request);
-       
-         // dd($authenticator->isAuthenticated());
-        if ($authenticator->isAuthenticated()) {
-            // dd('yes');
-            //  return $authenticator->makeRequestOneTimePasswordResponse();
-            return $next($request);
+        if(Auth::user()->tfa == 1){
+            $expire = DB::table('users')->where('id', Auth::user()->id)->first();
+            if($expire->tfa_expire == 1){
+                return $next($request);
+            }
+            else{
+                return redirect('/logout');
+            }
         }
-        // dd('no');
-
-        return $authenticator->makeRequestOneTimePasswordResponse();
+        return $next($request);
     }
 }

@@ -46,12 +46,12 @@ Route::get('/email_test', 'ResourceController@email_test');
 
 ////Mail 2FA
 Route::get('/2mfa', function () {
-    DB::table('users')->where('id', Auth::user()->id)->update([ 'tfa' => 1 ]);
+    DB::table('users')->where('id', Auth::user()->id)->update([ 'tfa' => 1, 'tfa_expire' => 1 ]);
     return redirect('home');
 })->middleware('auth');
 
 Route::get('/2mfa/disable', function () {
-    DB::table('users')->where('id', Auth::user()->id)->update([ 'tfa' => 0 ]);
+    DB::table('users')->where('id', Auth::user()->id)->update([ 'tfa' => 0, 'tfa_expire' => 0 ]);
     return redirect('home');
 })->middleware('auth');
 
