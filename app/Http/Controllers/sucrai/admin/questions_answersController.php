@@ -835,13 +835,13 @@ class questions_answersController extends Controller
     public function media_index()
     {
         $user = auth()->user()->id;
-        $data  = DB::table('media_types')->where('user_id', $user)->orderBy('topic_id')->get();
+        $data  = DB::table('media_types')->orderBy('topic_id')->get();
 
         return view('admin/question-answers/media_home', compact('data'));
     }
     public function destroy_media(Request $request)
     {
-        $id = $request->input("id");
+        $id = $request->id;
         $media = DB::table('media_types')->where('id', $id)->first();
         $media_file  = '/media/questions_answers/' . $media->file;
         $questions_with_this_media = DB::table('question_answers')->where('media_type', '!=', 'external')->where('media', $media_file)->update([
@@ -855,8 +855,7 @@ class questions_answersController extends Controller
         if (file_exists($media_path)) {
             @unlink($media_path);
         }
-
-        $mediaa = DB::table('media_types')->where('id', $id)->delete();
+        DB::table('media_types')->where('id', $id)->delete();
     }
     public function    storeInternalMediaQuestions(Request $request)
     {
