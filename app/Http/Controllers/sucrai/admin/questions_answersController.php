@@ -313,12 +313,14 @@ class questions_answersController extends Controller
         // check media type
         if (isset($request->media) && $request->media == "upload_media" && $request->hasFile('upload')) {
 
-
-            $request->validate([
-                // 'upload' => 'required|mimes:image/jpeg,image/png,image/jpg,image/gif,vide/mp4,audio/mp3|max:10000'
-                // 'upload' => 'required|max:10000'
+            $validator = Validator::make($request->all(), [
                 'upload' => 'max:10000'
             ]);
+
+            if ($validator->fails()) {
+                Session::flash('Failed', 'File Size greater than 10 MB is not allowed');
+                return redirect('questions_answers/add');
+            }
 
             $allowed_file_types = array('image/jpg', 'image/jpeg', 'image/png', 'image/jpg', 'image/gif', 'video/mp4', 'audio/mp3', 'audio/mpeg');
             $uploadfile = $request->file('upload');
@@ -351,9 +353,18 @@ class questions_answersController extends Controller
             // $fileName = isset($request->external_media) ? $request->external_media : "";
             // $media_type = "external";
 
-            $request->validate([
+            // $request->validate([
+            //     'external_media' => 'required'
+            // ]);
+
+            $validator = Validator::make($request->all(), [
                 'external_media' => 'required'
             ]);
+
+            if ($validator->fails()) {
+                Session::flash('Failed', 'External Media is Required');
+                return redirect('questions_answers/add');
+            }
 
             $url = isset($request->external_media) ? trim($request->external_media) : "";
 
@@ -543,10 +554,19 @@ class questions_answersController extends Controller
         // check media type
         if (isset($request->media) && $request->media == "upload_media" && $request->hasFile('upload')) {
 
-            $request->validate([
-                // 'upload' => 'required|max:10000'
+            // $request->validate([
+            //     // 'upload' => 'required|max:10000'
+            //     'upload' => 'max:10000'
+            // ]);
+
+            $validator = Validator::make($request->all(), [
                 'upload' => 'max:10000'
             ]);
+
+            if ($validator->fails()) {
+                Session::flash('Failed', 'File Size greater than 10 MB is not allowed');
+                return redirect('questions_answers/add');
+            }
 
             $allowed_file_types = array('image/jpg', 'image/jpeg', 'image/png', 'image/jpg', 'image/gif', 'video/mp4', 'audio/mp3', 'audio/mpeg');
             $uploadfile = $request->file('upload');
@@ -574,9 +594,18 @@ class questions_answersController extends Controller
             // $fileName = isset($request->external_media) ? $request->external_media : "";
             // $media_type = "external";
 
-            $request->validate([
+            // $request->validate([
+            //     'external_media' => 'required'
+            // ]);
+
+            $validator = Validator::make($request->all(), [
                 'external_media' => 'required'
             ]);
+
+            if ($validator->fails()) {
+                Session::flash('Failed', 'External Media is Required');
+                return redirect('questions_answers/add');
+            }
 
             $url = isset($request->external_media) ? trim($request->external_media) : "";
 
