@@ -117,7 +117,7 @@
                     </div>
                     @if(Auth::check())
                         <div class="tile-footer text-right " >
-                            <a href="{{url('users')}}" class="btn btn-primary">@lang('general.cancel')</a>
+                            <a href="{{url('site_admin')}}" class="btn btn-primary">@lang('general.cancel')</a>
                             <button type="submit" class="btn btn-success">@lang('general.save')</button>
                         </div>
                     @endif

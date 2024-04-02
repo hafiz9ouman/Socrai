@@ -19,5 +19,8 @@
 		.note-popover {
 			display: none;
 		}
+        table td{
+            text-transform: none !important;
+        }
 	</style>
   </head>

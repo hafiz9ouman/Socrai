@@ -35,6 +35,13 @@
 					</ul>
 				</div>
 			@endif
+			@if ( Session::get('failed') )
+				<div class="alert alert-danger">
+					<ul>
+						<li>{{ Session::get('failed') }}</li>
+					</ul>
+				</div>
+			@endif
 
 
           <div class="tile">

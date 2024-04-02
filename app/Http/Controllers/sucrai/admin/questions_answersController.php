@@ -804,7 +804,8 @@ class questions_answersController extends Controller
             "type" => 1,
         ]);
         DB::table('question_exercise')->where('question_answer_id', $id)->delete();
-        return redirect()->back();
+        // return redirect()->back();
+        return redirect("questions_answers");
     }
     public function destroy(Request $request)
     {
@@ -913,10 +914,20 @@ class questions_answersController extends Controller
 
         $ses_err_message = "";
 
-        $this->validate($request, [
+        // $this->validate($request, [
+        //     'file' => 'required',
+        //     'topic' => 'required',
+        // ]);
+
+        $validator = Validator::make($request->all(), [
             'file' => 'required',
             'topic' => 'required',
         ]);
+
+        if ($validator->fails()) {
+            Session::flash('failed', 'Media File is Required');
+            return redirect('media/add/media');
+        }
 
         if ($request->hasFile('file')) {
             $allowedfileExtension = ['mp4', 'jpg', 'JPG', 'png', 'mp3'];

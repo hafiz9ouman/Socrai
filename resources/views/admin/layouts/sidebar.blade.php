@@ -51,7 +51,7 @@
         <li><a class="app-menu__item <?php if (Request::segment(1) == "questions_answers") echo "active"; ?>" href="{{url('questions_answers')}}"><i class="fa fa-pencil-square-o" aria-hidden="true"> </i><span class="app-menu__label">Questions Answers</span></a></li>
         
         <li><a class="app-menu__item <?php if (Request::segment(1) == "topics") echo "active"; ?>" href="{{url('topics')}}"><i class="fa fa-grav" aria-hidden="true">  </i><span class="app-menu__label"> Topics</span></a></li>
-        <li><a class="app-menu__item <?php if (Request::segment(1) == "/media/home") echo "active"; ?>" href="{{url('/media/home')}}"><i class="fa fa-file-image-o" aria-hidden="true"> </i><span class="app-menu__label"> Add Media</span></a></li>
+        <li><a class="app-menu__item <?php if (Request::segment(1) == "media") echo "active"; ?>" href="{{url('/media/home')}}"><i class="fa fa-file-image-o" aria-hidden="true"> </i><span class="app-menu__label"> Add Media</span></a></li>
         @endif
 
           @if((Auth::user()->user_role) == '1')
@@ -62,7 +62,7 @@
         <li><a class="app-menu__item <?php if (Request::segment(1) == "tribesleader") echo "active"; ?>" href="{{url('tribesleader')}}"><i class="app-menu__icon fa fa-users"></i><span class="app-menu__label">Tribe members</span></a></li>
         @endif
         
-        <li><a href="{{url('discussions')}}" class="app-menu__item" href="javascript:;"><i class="app-menu__icon fa fa-sign-out"></i><span class="app-menu__label">Discussions</span></a></li>
+        <li><a href="{{url('discussions')}}" class="app-menu__item <?php if (Request::segment(1) == "discussions") echo "active"; ?>" href="javascript:;"><i class="app-menu__icon fa fa-sign-out"></i><span class="app-menu__label">Discussions</span></a></li>
 
 
         <li><a class="app-menu__item" href="{{url('logout')}}"><i class="app-menu__icon fa fa-sign-out"></i><span class="app-menu__label">Logout</span></a></li>

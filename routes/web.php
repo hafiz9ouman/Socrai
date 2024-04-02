@@ -271,7 +271,7 @@ Route::get('/questions_answers/csv/sample', function ()
 
 // add media to server
 Route::get('/media/home', 'sucrai\admin\questions_answersController@media_index')->name('home.media')->middleware(['auth','2fa']);
-Route::get('/questions_answers/add/media', 'sucrai\admin\questions_answersController@addMedia')->name('add.media')->middleware(['auth','2fa']);
+Route::get('/media/add/media', 'sucrai\admin\questions_answersController@addMedia')->name('add.media')->middleware(['auth','2fa']);
 Route::post('/questions_answers/store/media', 'sucrai\admin\questions_answersController@storeMedia')->name('store.media')->middleware(['auth','2fa']);
 Route::post('/questions_answers/store/internal_media_type', 'sucrai\admin\questions_answersController@storeInternalMediaQuestions')->name('store.internal.media.questions')->middleware(['auth','2fa']);
 Route::post('/media/delete', 'sucrai\admin\questions_answersController@destroy_media')->name('destroy.tribe')->middleware(['auth','2fa']);

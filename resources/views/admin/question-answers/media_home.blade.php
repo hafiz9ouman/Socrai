@@ -62,7 +62,7 @@
                              ?>
                 <h3 class="tile-title">All Media
                     @if(Auth::check() )
-                        <a href="/questions_answers/add/media" class="btn btn-sm btn-success pull-right cust_color"><i class="fa fa-plus"></i> Add Media</a>
+                        <a href="/media/add/media" class="btn btn-sm btn-success pull-right cust_color"><i class="fa fa-plus"></i> Add Media</a>
                 @endif
                 <!-- <a href="{{url('user/detail')}}" class="btn btn-sm btn-success pull-right cust_color"><i class="fa fa-eye"></i>User Detail</a> -->
                 </h3>

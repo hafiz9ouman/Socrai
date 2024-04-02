@@ -52,7 +52,7 @@
                     </div>
                     @if(Auth::check())
                         <div class="tile-footer text-right " >
-                            <a href="{{route('topics')}}" class="btn btn-default">@lang('general.cancel')</a>
+                            <a href="{{route('tribes')}}" class="btn btn-default">@lang('general.cancel')</a>
                             <button type="submit" class="btn btn-primary">@lang('general.save')</button>
                         </div>
                     @endif

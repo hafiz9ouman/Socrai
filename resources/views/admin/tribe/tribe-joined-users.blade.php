@@ -69,12 +69,12 @@
 			
 			@if( $row->image == "" )
 								
-                                    <img class=" img-circle img-size-32 mr-2 round_img"  height="15%" src="/public/male-placeholder.jpg" style=" height: 70px !important;
+                                    <img class=" img-circle img-size-32 mr-2 round_img"  height="15%" src="/male-placeholder.jpg" style=" height: 70px !important;
             width: 68px;
             border-radius: 30px; ">
 			
 						@else 
-							 <img class=" img-circle img-size-32 mr-2 round_img"  height="15%" src="/public/images/sucrai/{{$row->image}}" style=" height: 70px !important;
+							 <img class=" img-circle img-size-32 mr-2 round_img"  height="15%" src="/images/sucrai/{{$row->image}}" style=" height: 70px !important;
             width: 68px;
             border-radius: 30px; ">
 						@endif
