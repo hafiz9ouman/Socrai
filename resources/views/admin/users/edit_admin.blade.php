@@ -80,11 +80,11 @@
 							<div class="form-group">
 								
 								
-								 <label for="comp">2FA</label>
+								<label for="comp">2FA</label>
                                 <select name="tfa" class="form-control "  required >
-                                    <option <?php if($user->tfa==1) { echo 'selectd'; } ?> value="1">Yes</option>
-									<option <?php if($user->tfa!=1) { echo 'selectd'; } ?> value="0">No</option>
-                                                                    </select>
+                                    <option <?php if($user->tfa==1) { echo 'selected'; } ?> value="1">Yes</option>
+									<option <?php if($user->tfa==0) { echo 'selected'; } ?> value="0">No</option>
+                                </select>
 																	
 																	
 							</div>

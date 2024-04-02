@@ -32,6 +32,7 @@ class User extends Authenticatable
        'name',
        'image', 
        'email', 
+       'tfa', 
        'phone_number', 
        'password' ,
        'user_role', 
@@ -106,6 +107,8 @@ class User extends Authenticatable
        $data = User::where('id', $request['id'])
             ->update([
                 'name' => $request['name'],
+                'email' => $request['email'],
+                'tfa' => $request['tfa'],
                 'city' => $request['city'],
                 'state' => $request['state'],
                 'country' => $request['country'],
