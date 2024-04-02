@@ -178,7 +178,7 @@
                                                     <div style="display: none;" id="hidden-content-a{{ $counter }}">
                                                         <video controls poster="{{ '/play.png' }}" width="320"
                                                             height="240">
-                                                            <source src="{{ 'public' . $row->media }}" type="video/mp4">
+                                                            <source src="{{ url('' . $row->media) }}" type="video/mp4">
                                                             Your browser does not support the video tag.
                                                         </video>
 
@@ -191,7 +191,7 @@
                                                         href="javascript:;" />
                                                     <div style="display: none;" id="hidden-content-a{{ $counter }}">
                                                         <audio controls autostart="0" autostart="false" preload="none">
-                                                            <source src="{{ url('/' . $row->media) }}"
+                                                            <source src="{{ url('' . $row->media) }}"
                                                                 type="audio/mpeg">
                                                             Your browser does not support the audio element.
                                                         </audio>
