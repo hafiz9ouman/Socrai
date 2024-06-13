@@ -40,7 +40,7 @@
                         <tr>
                             <th style="display: none;">#Sr</th>
                             <th>Title Comments</th>
-                            <th>Total</th>
+                            <th>Likes</th>
 
                             <th width="130" class="text-center">Actions</th>
                         </tr>

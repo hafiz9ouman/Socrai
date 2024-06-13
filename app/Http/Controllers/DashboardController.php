@@ -30,7 +30,7 @@ class DashboardController extends Controller
         $user = Auth::user();
         if($user->user_role==0)
         {
-            Session::flash('message','Admin, Socrai Leader, Tribe Leaders are allowed to login.');
+            Session::flash('message','Admin & Socrai Leader are allowed to login.');
 			Auth::logout();
 			return redirect('/login');
         }

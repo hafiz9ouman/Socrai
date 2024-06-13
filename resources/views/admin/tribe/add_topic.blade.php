@@ -37,7 +37,7 @@
                             <!-- <label for="comp">Topics</label> -->
                             @if(!isset($topics) || !(count($topics)) )
                                 <div class=" text-center"> 
-                                        <img src="{{ url('/public/images/sucrai/warning.jpg') }}" style="width: 25%;" class="text-center">
+                                        <img src="{{ url('/images/sucrai/warning.webp') }}" style="width: 25%;" class="text-center">
 
                                         <h5 class="text-center">There are no topic available right now!</h5>
                                         <a href="{{ url('topics/add') }}" class="btn  btn-warning"> <i class="fa fa-plus ml-1" aria-hidden="true"></i> Create Topic  </a>

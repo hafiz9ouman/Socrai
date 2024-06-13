@@ -58,6 +58,17 @@ class UserController extends Controller
     {
           // \Artisan::call('config:clear');
           // \Artisan::call('cache:clear');
+        $blocked = DB::table('users')->where('email', request('email'))->first();
+        if($blocked->is_blocked == 'Yes'){
+            return response()->json(
+                [
+                    'code' => '403',
+                    'error_description' => array('error' => array('Account Blocked')),
+                    'message' => '',
+                ],
+                403
+            );
+        }
          
         if (Auth::attempt(['email' => request('email'), 'password' => request('password')])) {
             $user = Auth::user();
@@ -225,22 +236,22 @@ $pass = $input['password'];
 $errors = array();
 $res = '';
 if (strlen($pass) < 12 || strlen($pass) > 30) {
-    $errors[] = "Password should be min 12 characters and max 30 characters";
+    $errors['email'][] = "Password should be min 12 characters and max 30 characters";
 }
 if (!preg_match("/\d/", $pass)) {
-      $errors[] = "Password should contain at least one digit";
+      $errors['email'][] = "Password should contain at least one digit";
 }
 if (!preg_match("/[A-Z]/", $pass)) {
-     $errors[] = "Password should contain at least one Capital Letter";
+     $errors['email'][] = "Password should contain at least one Capital Letter";
 }
 if (!preg_match("/[a-z]/", $pass)) {
-     $errors[] = "Password should contain at least one small Letter";
+     $errors['email'][] = "Password should contain at least one small Letter";
 }
 if (!preg_match("/\W/", $pass)) {
-     $errors[] = "Password should contain at least one special character";
+     $errors['email'][] = "Password should contain at least one special character";
 }
 if (preg_match("/\s/", $pass)) {
-     $errors[] = "Password should not contain any white space";
+     $errors['email'][] = "Password should not contain any white space";
 }
 
 
@@ -289,7 +300,7 @@ if(sizeof($errors)==0){
 
             Mail::send(['html' => 'emails.signup'], $data, function ($message) use ($receiver_email, $sender_email, $subject) {
                 $message->to($receiver_email, 'Email Verification')->subject($subject);
-                $message->from($sender_email, 'Socrai'); // Use your sender name here
+                $message->from($sender_email, $sender_email); // Use your sender name here
             });
 
 

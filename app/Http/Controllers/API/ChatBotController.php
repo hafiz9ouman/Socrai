@@ -109,7 +109,7 @@ class ChatBotController extends Controller
         $media = array();
         foreach ($topics as $topic) {
             $data = array();
-            $media_of_tribe = DB::table('media_types')->wherein('topic_id', $topics)->select('mediatype as type', 'file', 'topic_id')->get();
+            $media_of_tribe = DB::table('media_types')->where('topic_id', $topic)->select('mediatype as type', 'file', 'topic_id')->get();
             // dd($media_of_tribe);
             foreach ($media_of_tribe as $key => $value) {
                 $value->file = url('public/media/questions_answers/' . $value->file);
@@ -2739,7 +2739,7 @@ class ChatBotController extends Controller
 
     public function add_like(Request $request)
     {
-        $id = $request->id;
+        $id = $request->comment_id;
 
         $check_comment_id = DB::table('discussions')->where('id', $id)->first();
 
