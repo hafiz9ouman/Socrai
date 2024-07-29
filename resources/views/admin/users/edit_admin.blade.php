@@ -56,14 +56,14 @@
 				<form class="form-horizontal" method="POST" action="{{ url('/site_admin/update') }}" enctype="multipart/form-data">
 					{{ csrf_field() }}
 					<div class="row">
-						   <div class="col-sm-6">
+						   <div class="col-sm-6 col-md-6">
                             <div class="form-group">
                                 <label for="title">Image</label>
                                 <input  id="image"  type="file" placeholder="image" value="{{$user->image}}" class="form-control" name="image">
                             </div>
                         </div>
 
-						<div class="col-sm-6 col-md-4">
+						<div class="col-sm-6 col-md-6">
 							<div class="form-group">
 								<label class="form-control-label">Name</label>
 								<input id="name" type="text" class="form-control " name="name" value="{{ $user->name }}"  autofocus>
@@ -73,6 +73,18 @@
 							<div class="form-group">
 								<label class="form-control-label">Email</label>
 								<input id="email"  type="email" class="form-control " name="email" value="{{ $user->email }}"  >
+							</div>
+						</div>
+						<div class="col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="form-control-label">Password</label>
+								<input id="password"  type="password" class="form-control " name="password"  >
+							</div>
+						</div>
+						<div class="col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="form-control-label">Confirm Password</label>
+								<input id="cpassword"  type="password" class="form-control " name="cpassword"  >
 							</div>
 						</div>
 						

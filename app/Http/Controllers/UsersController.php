@@ -128,18 +128,32 @@ class UsersController extends Controller
     public function site_admin_update(Request $request)
     {
         
-        // dd($request);
+        // dd($request->all());
                                  $this->validate($request, [
                                 'image' => 'mimes:jpeg,png',
+                                'name' => 'required',
+                                'email' => 'required',
                                 ],
                                     $messages = [
-                                        'required' => 'The Image:attribute field is required.',
                                         'mimes' => 'Only jpeg, png, are allowed.'
                                     ]
                                 );
+        if(isset($request->password)){
+            if(strlen($request->password) < 8){
+                Session::flash('error', "Password must be min 8 characters");
+                return redirect("/site_admin/edit/".$request->id);
+            }
+            if($request->password != $request->cpassword){
+                Session::flash('error', "Password & Confirm Password Must Matched");
+                return redirect("/site_admin/edit/".$request->id);
+            }
+            DB::table("users")->where('id', $request->id)->update([
+                'password' => bcrypt($request->password),
+            ]);
+        }
                                    
         $data=$this->user->updatedata($request);
-
+        // dd($data);
         if($data){
                 Session::flash('success', Lang::get('general.success_message'));
                 return redirect("site_admin");
