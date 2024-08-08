@@ -519,7 +519,7 @@ if(sizeof($errors)==0){
                                                      return response()->json(
                                                            [
                                                            'code' => '200',
-                                                           'message' => 'email varified',
+                                                           'message' => 'email verified',
                                                            'email_varified' => 1,
                                                            'data' => DB::table('users')->where('email' , $request->email)->select('name' , 'email' , 'is_email_varified','id')->first(),
                                                                       ],

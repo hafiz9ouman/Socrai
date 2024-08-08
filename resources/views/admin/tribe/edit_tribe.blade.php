@@ -135,10 +135,9 @@
                         url: '<?php echo url("tribes/delete"); ?>',
                         data: form_data,
                         success: function ( msg ) {
-alert(msg);return false;
                             swal( "@lang('Tribe Deleted Successfully')", '', 'success' )
                             setTimeout( function () {
-                                location.reload();
+                                window.location.href = "{{ url('tribes') }}";
                             }, 900 );
                         }
                     } );

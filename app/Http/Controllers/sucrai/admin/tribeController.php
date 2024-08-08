@@ -162,7 +162,7 @@ DB::table('user_tribes')->where('tribe_id' , '=' , $tribe_id)->delete();
 
  //DB::table('user_questions')->where('user_id' , $id)->delete();
        
-
+ return redirect('tribes')->with('Failed','Tribe Deleted Successfully');
     }
 
 
@@ -175,8 +175,7 @@ DB::table('user_tribes')->where('tribe_id' , '=' , $tribe_id)->delete();
         
          $data = DB::table('articles')
          ->join('tribes','articles.tribe_id','=','tribes.id')
-         ->join('topics','tribes.id','=','topics.tribe_id')
-         ->select('articles.id','articles.article_title','articles.image','articles.created_at','tribes.title as tribeTitle','topics.title as topicTitle')
+         ->select('articles.id','articles.article_title','articles.image','articles.created_at','tribes.title as tribeTitle')
          ->get();
           // echo '<pre>';print_r($data);exit;
           

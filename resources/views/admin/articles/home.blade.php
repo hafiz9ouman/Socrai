@@ -41,7 +41,6 @@
                             <th style="display: none;">#Sr</th>
                             <th>Title </th>
                              
-                               <th>Topic </th>
                              <th>Tribe </th>
                              <th>Date </th>
                            
@@ -60,9 +59,6 @@
                                     {{$row->article_title}}
                                 </td>
 
- <td>
-                                    {{$row->topicTitle}}
-</td>
                                      <td>
                                     {{$row->tribeTitle}}
                                 </td>

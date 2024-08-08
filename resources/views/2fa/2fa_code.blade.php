@@ -36,7 +36,7 @@
           <div class="form-group">
           
             <label class="control-label">Enter the authentication code:</label>
-             <input id="code" type="number" class="form-control" name="code" value="{{ old('code') }}" required autofocus>
+             <input id="code" type="text" class="form-control" name="code" onkeyup="this.value = this.value.replace(/[^0-9+]/g, '')" value="{{ old('code') }}" required autofocus>
              @if(isset($err))
                 <span class="text-danger" style="font-weight:1000;">{{ $err }}</span>
             @endif

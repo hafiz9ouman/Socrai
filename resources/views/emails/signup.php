@@ -1,5 +1,5 @@
 <html><body>
-                <img style="background:black;" src="<?php echo env('APP_URL') ?>/frontned/assets/images/logo.png" alt="New User Signup" />
+                <img style="background:black;" src="<?php echo env('APP_URL') ?>/frontend/assets/images/logo.png" alt="New User Signup" />
                 <table rules="all" style="border-color: #666;" cellpadding="10">
                 <tr style='background: #eee;'><td><strong>Name:</strong> </td><td><?php echo strip_tags($name); ?></td></tr>
                 <tr><td><strong>Email:</strong> </td><td><?php echo strip_tags($email); ?></td></tr>

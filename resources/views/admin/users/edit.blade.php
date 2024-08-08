@@ -134,7 +134,7 @@ if (count($errors) > 0){
                         </div>
 						
 	<div class="col-sm-6 col-md-4 ">
-                            <label for="comp">Is Email Varified?</label> 
+                            <label for="comp">Is Email Verified?</label> 
                             <select name="is_email_varified" class="form-control" >
                                 
                                 
