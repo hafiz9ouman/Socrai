@@ -1,6 +1,6 @@
 
 <html><body>
-                <img style="background:black;" src="{{env('APP_URL')}}/sucrai/assets/images/logo.png" alt="Contact Inquiry" />
+                <img style="background:black;" src="{{env('APP_URL')}}/frontend/assets/images/logo.png" alt="Contact Inquiry" />
                 <table rules="all" style="border-color: #666;" cellpadding="10">
                 
 <tr><td colspan="2"><strong><h3>Request to join the tribe has been declined</h3></strong> </td></tr>
