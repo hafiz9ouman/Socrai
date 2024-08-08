@@ -370,7 +370,7 @@ if(sizeof($errors)==0){
         return response()->json(
             [
                 'code' => '200',
-                'message' => "Varification code sent to your email please check your inbox.",
+                'message' => "Verification code sent to your email please check your inbox.",
                 // 'message' => "Account Successfully Created",
                 'data' => $new_user,
                 'token'=>$token,

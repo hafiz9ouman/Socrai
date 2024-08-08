@@ -1,6 +1,11 @@
 @extends( 'admin.layouts.app' )
 
 @section( 'content' )
+<style>
+    .cke_notifications_area{
+        display: none;
+    }
+</style>
     <div class="app-title">
       
         <ul class="app-breadcrumb breadcrumb">
