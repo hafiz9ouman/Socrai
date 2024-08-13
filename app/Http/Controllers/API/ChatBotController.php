@@ -1531,7 +1531,7 @@ class ChatBotController extends Controller
         if ($test_question) {
             $message = '<h5> Welcome back ' . DB::table('users')->where('id', auth('api')->user()->id)->pluck('name')->first() . ', </h5><br> <p> In this section we can talk about <strong> ' . $topic_name . '</strong> </p>';
         } else {
-            $message = '<h5> Welcome back ' . DB::table('users')->where('id', auth('api')->user()->id)->pluck('name')->first() . ', </h5><br> <p>Currently there are no questions available in this section. You can vist again later.</p>';
+            $message = '<h5> Welcome back ' . DB::table('users')->where('id', auth('api')->user()->id)->pluck('name')->first() . ', </h5><br> <p>Currently there are no questions available in this section. You can visit again later.</p>';
         }
         // dd($cnt);
         if ($cnt == 0) {
