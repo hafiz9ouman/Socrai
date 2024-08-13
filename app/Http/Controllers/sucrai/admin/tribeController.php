@@ -305,10 +305,10 @@ return view('admin.articles.home' , compact('data'));
 
 
      public function update_tribe_data(Request $request){
-        $description = strip_tags(htmlspecialchars_decode($request->description));
+        // $description = strip_tags(htmlspecialchars_decode($request->description));
         DB::table('tribes')->where('id' , $request->tribe_id)->update([
                 'title' => $request->title,
-                'description' => $description,
+                'description' => $request->description,
         ]);
 
          return redirect('tribes')->with('success','Successfully Updated tribe '.DB::table('tribes')->where('id' , $request->tribe_id)->pluck('title')->first());
@@ -470,10 +470,10 @@ return view('admin.articles.home' , compact('data'));
     }
 
     public function stores(Request $request){
-        $description = strip_tags(htmlspecialchars_decode($request->description));
+        // $description = strip_tags(htmlspecialchars_decode($request->description));
         DB::table('tribes')->insert([
             'title' => $request['title'],
-            'description' => $description,
+            'description' => $request['description'],
             'leader' => '0'
 
         ]);

@@ -1514,6 +1514,7 @@ class ChatBotController extends Controller
         // dd('walla');
         $data = DB::table('question_answers')->where('topic_id', $topic_id)->select('clue')->get();
         $cnt = count($data);
+        $topic_name = DB::table('topics')->where('id', $topic_id)->pluck('title')->first();
         $test_question = DB::table('question_answers')->where('topic_id', $topic_id)->select('question', 'clue')->get();
         if (count($test_question) > 0) {
             $test_question = $test_question[rand(0, $cnt - 1)];
@@ -1528,7 +1529,7 @@ class ChatBotController extends Controller
         // $message = '<h5> Welcome back '.DB::table('users')->where('id' , auth('api')->user()->id)->pluck('name')->first().', </h5><br> <p> In this section we can talk about like <strong> '.$test_question->question.'</strong> </p>';
         // added this on 4 30 2021 bt ahmad because of feedback
         if ($test_question) {
-            $message = '<h5> Welcome back ' . DB::table('users')->where('id', auth('api')->user()->id)->pluck('name')->first() . ', </h5><br> <p> In this section we can talk about <strong> ' . $test_question->clue . '</strong> </p>';
+            $message = '<h5> Welcome back ' . DB::table('users')->where('id', auth('api')->user()->id)->pluck('name')->first() . ', </h5><br> <p> In this section we can talk about <strong> ' . $topic_name . '</strong> </p>';
         } else {
             $message = '<h5> Welcome back ' . DB::table('users')->where('id', auth('api')->user()->id)->pluck('name')->first() . ', </h5><br> <p>Currently there are no questions available in this section. You can vist again later.</p>';
         }

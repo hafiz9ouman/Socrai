@@ -250,7 +250,7 @@
                                                             <th> <strong>Attached to :</strong> </th>
                                                         </tr>
                                                         <tr>
-                                                            <td>{{ $row->linked }}</td>
+                                                            <td><?php echo $row->linked ?></td>
                                                         </tr>
                                                         <td colspan="2">
                                                             <a href="{{ url('/questions_answers/makeItExercise/' . $row->id) }}"
