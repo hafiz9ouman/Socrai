@@ -75,9 +75,9 @@
                         <fieldset class="answerr">
                             <label for="coupon_field">Select Exercise:</label>
                             <select type="text" name="exercise_question" class="form-control" id="coupon_field" />
-                            <option value=null> @if($attach_flag != null) {{$attach_flag->question}} @endif</option>
+                            <option value=null> @if($attach_flag != null) <?php echo $attach_flag->question ?> @endif</option>
                             @foreach($exercise as $datum)
-                            <option value="{{$datum->id}} ">{{$datum->question}}</option>
+                            <option value="{{$datum->id}} "><?php echo $datum->question ?></option>
                             @endforeach
 
                             </select>

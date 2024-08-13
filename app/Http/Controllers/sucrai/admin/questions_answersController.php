@@ -525,14 +525,15 @@ class questions_answersController extends Controller
     {
         // dd('wala');
         // $un_linked_question = DB::table('question_answers')->find($id);
+        $data = DB::table('question_answers')->find($id);
         $all_exercises = DB::table('question_exercise')->pluck('exercise_question_id');
-        $exercise = DB::table('question_answers')->where('type', 1)->whereNotIn('id', $all_exercises)->get();
+        $exercise = DB::table('question_answers')->where('type', 1)->whereNotIn('id', $all_exercises)->where('topic_id', $data->topic_id)->get();
         // dd($exercise);
         $attach_flag = DB::table('question_exercise')->where('question_answer_id', $id)->first();
         if ($attach_flag != null) {
             $attach_flag->question = DB::table('question_answers')->where('id', $attach_flag->exercise_question_id)->pluck('question')->first();
         }
-        $data = DB::table('question_answers')->find($id);
+        // $data = DB::table('question_answers')->find($id);
         $data->question_id = $id;
         $selected_topic = DB::table('topics')->where('id', $data->topic_id)->pluck('title')->first();
         $data->current_topic = $selected_topic;

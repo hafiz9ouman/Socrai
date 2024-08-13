@@ -57,7 +57,7 @@
                                 <select name="exercise_id" class="form-control "  required >
                                     <option value="">---  Select exercise  ---</option>
                                     @foreach ($exercise as $data)
-                                        <option value="{{ $data->id }}">{{ $data->question }}</option>
+                                        <option value="{{ $data->id }}"><?php echo $data->question ?></option>
                                     @endforeach
                                 </select>
                             </div>
