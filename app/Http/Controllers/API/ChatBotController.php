@@ -788,7 +788,7 @@ class ChatBotController extends Controller
             		$confidence_value = ["q_id"=>null , "value"=>0];
             		$searchByQuey = DB::table('question_answers')->where('topic_id', $topic_id)->where(function($q) use($request) {
             										$q->where('question',"like" ,  "%{$request->question}%")->orWhere("clue" ,"like" , "%{$request->question}%" );
-            										})->first();
+            										})->orderByRaw('ABS(LENGTH(question) - LENGTH(?))', [$request->question])->first();
 
             		// dd($searchByQuey);
                 foreach ($user_level_questions as $key => $result_questions) {
