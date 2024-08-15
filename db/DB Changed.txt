@@ -1,1 +1,4 @@
 ALTER TABLE `users` ADD `tfa_expire` TINYINT(4) NOT NULL DEFAULT '0' AFTER `tfa`;
+
+ALTER TABLE `discussions` 
+CHANGE `comment` `comment` VARCHAR(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL;
