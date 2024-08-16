@@ -19,6 +19,9 @@ class CorsMiddleware
 
         $origin = $request->header('Origin');
         $parsedOrigin = parse_url($origin, PHP_URL_HOST);
+
+        // $response = $next($request);
+        // return $response;
         // dd($allowedDomains);
 
         if (in_array($parsedOrigin, $allowedDomains)) {
