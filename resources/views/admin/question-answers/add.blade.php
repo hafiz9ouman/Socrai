@@ -49,7 +49,7 @@
                     <div class="col-lg-6">
                         <div class="form-group">
                             <label class="form-control-label">Question</label>
-                            <input id="question" type="text" class="form-control " name="question" required placeholder="Please enter question.">
+                            <textarea id="question" rows="6" class="form-control " name="question" required placeholder="Please enter question."></textarea>
                         </div>
                        
                         <div class="form-group ">
@@ -70,7 +70,7 @@
                         -->
                         <div class="form-group">
                             <label class="form-control-label">Answer</label>
-                            <textarea class="form-control" rows="3" id="answer" name="answer" required placeholder="Please enter answer."></textarea>
+                            <textarea class="form-control" rows="6" id="answer" name="answer" required placeholder="Please enter answer."></textarea>
                         </div>
 
 

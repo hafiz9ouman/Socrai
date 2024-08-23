@@ -39,7 +39,7 @@
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label class="form-control-label">Question</label>
-                            <input id="question" type="text" class="form-control" value="{{$data->question}}" name="question" required>
+                            <textarea id="question" class="form-control" rows="6" name="question" required>{{$data->question}}</textarea>
                         </div>
 
                         
@@ -85,7 +85,7 @@
                         <!-- end ahmad cpde -->
                         <div class="form-group">
                             <label class="form-control-label">Answer</label>
-                            <textarea class="form-control" rows="3" id="answer" name="answer" placeholder="Please enter answer." required>{{$data->answer}}</textarea>
+                            <textarea class="form-control" rows="6" id="answer" name="answer" placeholder="Please enter answer." required>{{$data->answer}}</textarea>
                         </div>
 
                         <div class="form-group">
