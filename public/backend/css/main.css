@@ -13497,7 +13497,7 @@ be a descendant of the grid when it is being dragged.
     overflow-x: hidden;
   }
   .app .app-sidebar {
-    left: -230px;
+    left: -270px;
   }
   .app .app-sidebar__overlay {
     visibility: hidden;
