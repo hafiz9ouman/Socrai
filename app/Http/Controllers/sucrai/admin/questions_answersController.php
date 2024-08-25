@@ -48,7 +48,21 @@ class questions_answersController extends Controller
     {
 
         // dd(pathinfo('https://file-examples-com.github.io/uploads/2017/11/file_example_MP3_700KB.mp3', PATHINFO_EXTENSION));
-        $questions = DB::table('question_answers')->orderBy('question_answers.type')->join('topics', 'question_answers.topic_id', '=', 'topics.id')->select('question_answers.*', 'topics.title')->paginate(500);
+        $exercise = DB::table('question_answers')
+        ->join('topics', 'question_answers.topic_id', '=', 'topics.id')
+        ->where('question_answers.type', 1)
+        ->select('question_answers.*', 'topics.title')
+        ->orderBy('question_answers.id', 'desc')
+        ->get();
+
+        $question = DB::table('question_answers')
+        ->join('topics', 'question_answers.topic_id', '=', 'topics.id')
+        ->where('question_answers.type', 0)
+        ->select('question_answers.*', 'topics.title')
+        ->orderBy('question_answers.id', 'desc')
+        ->get();
+        // dd($exercise, $questions);
+        $questions= $question->merge($exercise);
         // dd($questions);
         $data = json_encode($questions);
         $data = json_decode($data);
