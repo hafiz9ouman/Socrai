@@ -2560,6 +2560,13 @@ button.botui-actions-buttons-button {
   transition:right .1s cubic-bezier(.25,.25,.5,1),bottom .1s cubic-bezier(.25,.25,.5,1.1),min-width .2s cubic-bezier(.25,.25,.5,1.1),max-width .2s cubic-bezier(.25,.25,.5,1.1),max-height .2s cubic-bezier(.25,.25,.5,1.1),min-height .2s cubic-bezier(.25,.25,.5,1.1),border-radius 0ms cubic-bezier(.25,.25,.5,1.1),background-color 0ms cubic-bezier(.25,.25,.5,1.1),color 0ms cubic-bezier(.25,.25,.5,1.1);
 }
 
+@media (max-width: 800px) {
+  #MediaContainerImage .Layout-open {
+    min-width: 95%;
+    max-width: 95%;
+  }
+}
+
 #MediaContainerImage .Layout-expand {
   height:500px;
   min-height:500px;
