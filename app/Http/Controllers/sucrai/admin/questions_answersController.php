@@ -52,14 +52,14 @@ class questions_answersController extends Controller
         ->join('topics', 'question_answers.topic_id', '=', 'topics.id')
         ->where('question_answers.type', 1)
         ->select('question_answers.*', 'topics.title')
-        ->orderBy('question_answers.id', 'desc')
+        ->orderBy('question_answers.id', 'asc')
         ->get();
 
         $question = DB::table('question_answers')
         ->join('topics', 'question_answers.topic_id', '=', 'topics.id')
         ->where('question_answers.type', 0)
         ->select('question_answers.*', 'topics.title')
-        ->orderBy('question_answers.id', 'desc')
+        ->orderBy('question_answers.id', 'asc')
         ->get();
         // dd($exercise, $questions);
         $questions= $question->merge($exercise);
