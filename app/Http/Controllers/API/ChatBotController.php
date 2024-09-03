@@ -663,6 +663,7 @@ class ChatBotController extends Controller
         // }
         // add is_joined index in tribe_details object array.
         $tribe_details->put('is_joined', $is_tribe_joined);
+        //dd($tribe_details);
         if (count($topics) > 0) {
             return response()->json(
                 [
@@ -786,11 +787,24 @@ class ChatBotController extends Controller
                 // $results = json_decode($results);
                 
             		$confidence_value = ["q_id"=>null , "value"=>0];
-            		$searchByQuey = DB::table('question_answers')->where('topic_id', $topic_id)->where(function($q) use($request) {
+            		$questions = DB::table('question_answers')->where('topic_id', $topic_id)->where('type', 0)->where(function($q) use($request) {
             										$q->where('question',"like" ,  "%{$request->question}%")->orWhere("clue" ,"like" , "%{$request->question}%" );
-            										})->orderByRaw('ABS(LENGTH(question) - LENGTH(?))', [$request->question])->first();
+            										})->get();
 
-            		// dd($searchByQuey);
+                                                    // Calculate the accuracy for each question
+                    $questions_with_accuracy = $questions->map(function($item) use ($request) {
+                        $similarity = similar_text($request->question, $item->question, $percent);
+                        $item->accuracy = round($percent, 2); // Round to 2 decimal places for better readability
+                        return $item;
+                    });
+
+                    $best_match = $questions_with_accuracy->sortByDesc('accuracy')->first();
+                    if($best_match && $best_match->accuracy > 80){
+                        $searchByQuey = $best_match;
+                    }else{
+                        $searchByQuey = null;
+                    }
+            		//dd($searchByQuey);
                 foreach ($user_level_questions as $key => $result_questions) {
                 				if($searchByQuey != null){
                 					break;
@@ -810,7 +824,7 @@ class ChatBotController extends Controller
                 							
                 			}
                 			if($searchByQuey == null){
-                				if($confidence_value["value"] < 75){
+                				if($confidence_value["value"] < 80){
                 					$results = null;
                 				}else{
                 					$results = $confidence_value["q_id"];
@@ -826,7 +840,7 @@ class ChatBotController extends Controller
                 					
             }
 
-            
+            // dd($confidence_value, $results);
 
 
 
@@ -860,10 +874,34 @@ class ChatBotController extends Controller
                     // }
                     if ($total_attempts == 2) {
                         $_themess = "";
-                        $_themess_question = DB::table('question_answers')->where('type', 0)->where('topic_id', $topic_id)->inRandomOrder()->first();
-                        if (DB::table('question_answers')->where('type', 0)->where('topic_id', $topic_id)->inRandomOrder()->pluck('question')->first() != null) {
-                            $_themess = "In this module, we can talk about things like \n \" " .$_themess_question->question  . "\" ";
-                        }
+                        $already_asked = DB::table('user_questions')->where('topic_id', $topic_id)->where('user_id', $user_id)->pluck('question_answer_id');
+                        $available_level = DB::table('question_answers')
+                            ->where('type', 0)
+                            ->where('topic_id', $topic_id)
+                            ->whereNotIn('id', $already_asked)
+                            ->orderBy('level', 'asc')
+                            ->pluck('level')
+                            ->first();
+                            //dd($available_level);
+                            if ($available_level !== null) {
+                                // Fetch a random question from the available level
+                                $_themess_question = DB::table('question_answers')
+                                                        ->where('type', 0)
+                                                        ->where('topic_id', $topic_id)
+                                                        ->whereNotIn('id', $already_asked)
+                                                        ->where('level', $available_level)
+                                                        ->inRandomOrder()
+                                                        ->first();
+                                
+                                // Set the response message if a question is found
+                                if ($_themess_question) {
+                                    $_themess = "In this module, we can talk about things like \n \" " .$_themess_question->question  . "\" ";
+                                }
+                            } 
+                            //dd($_themess_question);
+                        // if (DB::table('question_answers')->where('type', 0)->where('topic_id', $topic_id)->inRandomOrder()->pluck('question')->first() != null) {
+                        //     $_themess = "In this module, we can talk about things like \n \" " .$_themess_question->question  . "\" ";
+                        // }
                     }
                     if ($total_attempts < 2) {
                         $total_attempts++;
@@ -925,6 +963,7 @@ class ChatBotController extends Controller
                 } else {
                     $data = DB::table('question_answers')
                         // ->select('answer','media','media_type','id' , '')
+                        ->where('type', 0)
                         ->where('id', $question_id)
                         ->first();
                 }
@@ -1038,8 +1077,11 @@ class ChatBotController extends Controller
                             $asking_exercise_points = 0;
                         }
                     }
-
+                    $is_exer = DB::table('question_answers')->where('id', $question_id)->first();
                     if ($has_record == null || !isset($has_record)) {
+                        if($is_exer->type == 1){
+                            $topic_point->question_points = 0;
+                        }
                         DB::table('user_questions')->insert(
                             [
                                 'question_answer_id' => $question_id,
@@ -1057,7 +1099,10 @@ class ChatBotController extends Controller
                         );
                     } else {
                         // $check_is_level_crossed =  DB::table('user_questions')->where('question_answer_id' ,$question_id )->where('user_id' , $user_id )->where('topic_id' , $topic_id)->get();
-                        //    if($check_is_level_crossed->level_crossed != 'no'){}        
+                        //    if($check_is_level_crossed->level_crossed != 'no'){}  
+                        if($is_exer->type == 1){
+                            $topic_point->question_points = 0;
+                        }      
                         DB::table('user_questions')->where('question_answer_id', $question_id)->where('user_id', $user_id)->where('topic_id', $topic_id)->update(
                             [
                                 'question_answer_id' => $question_id,
