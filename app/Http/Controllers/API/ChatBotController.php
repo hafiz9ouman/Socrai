@@ -770,8 +770,17 @@ class ChatBotController extends Controller
             if ($is_exercise == 'true') {
                 // dd('walla');  
                 $actual_answer_in_DB = DB::table('question_answers')->where('question', $exercise_question)->where('topic_id', $topic_id)->first();
-                $total_char = strlen((string)$actual_answer_in_DB->answer); 	
-                $results = (similar_text($request->question , $actual_answer_in_DB->answer)/$total_char)*100;
+                $total_char = strlen((string)$actual_answer_in_DB->question); 	
+                $results = (similar_text($request->question , $actual_answer_in_DB->question)/$total_char)*100;
+
+
+                // $best_match = $questions_with_accuracy->sortByDesc('accuracy')->first();
+                //     if($best_match && $best_match->accuracy > 80){
+                //         $searchByQuey = $best_match;
+                //     }else{
+                //         $searchByQuey = null;
+                //     }
+
                 // $actual_answer_in_DB = DB::table('question_answers')->where('question', $exercise_question)->where('topic_id', $topic_id)->pluck('answer')->first();
                 // $actual_clue_in_DB = DB::table('question_answers')->where('question', $exercise_question)->where('topic_id', $topic_id)->pluck('clue')->first();
                 // $actual_answer_in_DB =   str_replace(array("\r\n", "\r", "\n"), " ", $actual_answer_in_DB);
@@ -1070,13 +1079,13 @@ class ChatBotController extends Controller
                     }
 
 
-                    if ($is_exercise == true) {
+                    // if ($is_exercise == true) {
 
 
-                        if ($cnofidence_level < 20) {
-                            $asking_exercise_points = 0;
-                        }
-                    }
+                    //     if ($cnofidence_level < 20) {
+                    //         $asking_exercise_points = 0;
+                    //     }
+                    // }
                     $is_exer = DB::table('question_answers')->where('id', $question_id)->first();
                     if ($has_record == null || !isset($has_record)) {
                         if($is_exer->type == 1){
