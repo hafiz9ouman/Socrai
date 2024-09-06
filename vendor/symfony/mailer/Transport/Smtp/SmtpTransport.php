@@ -39,6 +39,7 @@ class SmtpTransport extends AbstractTransport
     private int $pingThreshold = 100;
     private float $lastMessageTime = 0;
     private AbstractStream $stream;
+    private string $mtaResult = '';
     private string $domain = '[127.0.0.1]';
 
     public function __construct(?AbstractStream $stream = null, ?EventDispatcherInterface $dispatcher = null, ?LoggerInterface $logger = null)
@@ -147,6 +148,10 @@ class SmtpTransport extends AbstractTransport
             throw $e;
         }
 
+        if ($this->mtaResult && $messageId = $this->parseMessageId($this->mtaResult)) {
+            $message->setMessageId($messageId);
+        }
+
         $this->checkRestartThreshold();
 
         return $message;
@@ -230,13 +235,9 @@ class SmtpTransport extends AbstractTransport
                 $this->getLogger()->debug(sprintf('Email transport "%s" stopped', __CLASS__));
                 throw $e;
             }
-            $mtaResult = $this->executeCommand("\r\n.\r\n", [250]);
+            $this->mtaResult = $this->executeCommand("\r\n.\r\n", [250]);
             $message->appendDebug($this->stream->getDebug());
             $this->lastMessageTime = microtime(true);
-
-            if ($mtaResult && $messageId = $this->parseMessageId($mtaResult)) {
-                $message->setMessageId($messageId);
-            }
         } catch (TransportExceptionInterface $e) {
             $e->appendDebug($this->stream->getDebug());
             $this->lastMessageTime = 0;
