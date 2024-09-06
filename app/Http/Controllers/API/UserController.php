@@ -59,7 +59,7 @@ class UserController extends Controller
           // \Artisan::call('config:clear');
           // \Artisan::call('cache:clear');
         $blocked = DB::table('users')->where('email', request('email'))->first();
-        if($blocked->is_blocked == 'Yes'){
+        if(isset($blocked) && $blocked->is_blocked == 'Yes'){
             return response()->json(
                 [
                     'code' => '403',
