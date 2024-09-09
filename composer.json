@@ -14,11 +14,12 @@
         "laravel/socialite": "^5.0",
         "laravel/tinker": "^2.7|dev-develop",
         "laravel/ui": "^3.4",
-        "league/oauth2-server": "^8.4",
+        "league/oauth2-server": "8.5.3",
         "maatwebsite/excel": "~3.1.48",
         "paragonie/random_compat": "2.*",
         "phpseclib/phpseclib": "~3.0",
         "pragmarx/google2fa-laravel": "*",
+        "stella-maris/clock": "^0.1.7",
         "stevebauman/location": "^6.0",
         "stripe/stripe-php": "^6.40"
     },
