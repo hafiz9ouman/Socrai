@@ -797,21 +797,42 @@ class ChatBotController extends Controller
                 
             		$confidence_value = ["q_id"=>null , "value"=>0];
             		$questions = DB::table('question_answers')->where('topic_id', $topic_id)->where('type', 0)->where(function($q) use($request) {
-            										$q->where('question',"like" ,  "%{$request->question}%")->orWhere("clue" ,"like" , "%{$request->question}%" );
+            										$q->where('question',"like" ,  "%{$request->question}%");
             										})->get();
+                    // dd($questions);
+                    if($questions->isEmpty()){
+                        // dd("ok");
+                        $questions = DB::table('question_answers')->where('topic_id', $topic_id)->where('type', 0)->where(function($q) use($request) {
+                            $q->where("clue" ,"like" , "%{$request->question}%" );
+                            })->get();
 
-                                                    // Calculate the accuracy for each question
-                    $questions_with_accuracy = $questions->map(function($item) use ($request) {
-                        $similarity = similar_text($request->question, $item->question, $percent);
-                        $item->accuracy = round($percent, 2); // Round to 2 decimal places for better readability
-                        return $item;
-                    });
+                        // Calculate the accuracy for each question
+                        $questions_with_accuracy = $questions->map(function($item) use ($request) {
+                            $similarity = similar_text($request->question, $item->clue, $percent);
+                            $item->accuracy = round($percent, 2); // Round to 2 decimal places for better readability
+                            return $item;
+                        });
 
-                    $best_match = $questions_with_accuracy->sortByDesc('accuracy')->first();
-                    if($best_match && $best_match->accuracy > 80){
-                        $searchByQuey = $best_match;
+                        $best_match = $questions_with_accuracy->sortByDesc('accuracy')->first();
+                        if($best_match && $best_match->accuracy > 80){
+                            $searchByQuey = $best_match;
+                        }else{
+                            $searchByQuey = null;
+                        }
                     }else{
-                        $searchByQuey = null;
+                        // Calculate the accuracy for each question
+                        $questions_with_accuracy = $questions->map(function($item) use ($request) {
+                            $similarity = similar_text($request->question, $item->question, $percent);
+                            $item->accuracy = round($percent, 2); // Round to 2 decimal places for better readability
+                            return $item;
+                        });
+
+                        $best_match = $questions_with_accuracy->sortByDesc('accuracy')->first();
+                        if($best_match && $best_match->accuracy > 80){
+                            $searchByQuey = $best_match;
+                        }else{
+                            $searchByQuey = null;
+                        }
                     }
             		//dd($searchByQuey);
                 foreach ($user_level_questions as $key => $result_questions) {
